@@ -1,0 +1,11 @@
+from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Pessoa
+from .serializers import PessoaSerializer
+
+@api_view(['GET'])
+def listar_pessoas(request):
+    pessoas = Pessoa.objects.all()
+    serializers = PessoaSerializer(pessoas,many=True)
+    return Response(serializers.data)
